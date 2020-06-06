@@ -7,6 +7,8 @@
 
 This package provides discussison forum for Laravel applications.  This is based on a Laravel forum tutorial I saw a while ago.  I wanted to put it into a pacakge for re-use and add some additional features such as receiving notifications for my own needs.
 
+![Discuss screenshot](discuss-screenshot.png)
+
 ## Features
 
 * Users can start a discussion thread and add replies.

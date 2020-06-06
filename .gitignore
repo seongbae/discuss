@@ -1,4 +1,5 @@
 build
+*.swp
 composer.lock
 docs
 vendor

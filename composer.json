@@ -18,8 +18,8 @@
         }
     ],
     "require": {
-        "php": "^7.1",
-        "illuminate/support": "^6.0",
+        "php": "^7.2.5",
+        "illuminate/support": "^7.0",
         "realrashid/sweet-alert": "^3.1"
     },
     "require-dev": {

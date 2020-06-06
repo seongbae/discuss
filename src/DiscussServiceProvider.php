@@ -17,12 +17,6 @@ class DiscussServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__.'/routes.php');
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'discuss');
 
-        \Spatie\Flash\Flash::levels([
-            'success' => 'alert-success',
-            'warning' => 'alert-warning',
-            'error' => 'alert-error',
-        ]);
-
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__.'/../config/config.php' => config_path('discuss.php'),

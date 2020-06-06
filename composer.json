@@ -1,0 +1,57 @@
+{
+    "name": "seongbae/discuss",
+    "description": "Laravel forum package",
+    "keywords": [
+        "seongbae",
+        "discuss",
+        "forum",
+        "discussion"
+    ],
+    "homepage": "https://github.com/seongbae/discuss",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Seong Bae",
+            "email": "seong@lnidigital.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "illuminate/support": "^6.0",
+        "realrashid/sweet-alert": "^3.1"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.0",
+        "phpunit/phpunit": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Seongbae\\Discuss\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Seongbae\\Discuss\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Seongbae\\Discuss\\DiscussServiceProvider"
+            ],
+            "aliases": {
+                "Discuss": "Seongbae\\Discuss\\DiscussFacade"
+            }
+        }
+    }
+}

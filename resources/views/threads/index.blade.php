@@ -25,7 +25,7 @@
 						@if ($thread->user != null)
 						<article>
 							<div style="float:left;" class="mr-4">
-								<img src="{{ config('discuss.user_image_field') == "" ? config('discuss.default_image') : $thread->user->{config('discuss.user_image_field')} }}" class="rounded-circle" width="50px">
+								<img src="{{ config('discuss.user_image_field') == "" ? config('discuss.default_image') : config('discuss.user_image_path').$thread->user->{config('discuss.user_image_field')} }}" class="rounded-circle" width="50px">
 							</div>
 							<div style="float:left;">
 								<a href="{{ $thread->path() }}" style="font-size:1.2em;color:#22292f;">

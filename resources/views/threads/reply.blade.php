@@ -3,7 +3,7 @@
 	    <div class="card-body">
             <div class="mb-4">
                 <div class="float-left">
-                    <img src="{{ config('discuss.user_image_field') == "" ? config('discuss.default_image') : $reply->user->{config('discuss.user_image_field')} }}" class="rounded-circle mr-2" width="40px">
+                    <img src="{{ config('discuss.user_image_field') == "" ? config('discuss.default_image') : config('discuss.user_image_path').$reply->user->{config('discuss.user_image_field')} }}" class="rounded-circle mr-2" width="40px">
                     <a href="#" v-b-popover.hover.right="'{{Auth::user()->name}}'" title="{{Auth::user()->name}}">{{ $reply->user->name }}</a> posted {{ $reply->created_at->diffForHumans() }}
                 </div>
                 @if (Auth::user()->can('manage-discussion') || Auth::id() == $reply->user_id)

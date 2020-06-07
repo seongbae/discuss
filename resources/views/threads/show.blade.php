@@ -3,7 +3,7 @@
 @section('content')
     <section>
         <div class="container">
-            <thread :thread="{{$thread}}" :channels="{{$channels}}" :user="{{Auth::user()}}" :subscribed="{{ $subscribed  }}" :imagefield="'{{ config('discuss.user_image_field') }}'" :defaultimage="'{{ config('discuss.default_image') }}'">
+            <thread :thread="{{$thread}}" :channels="{{$channels}}" :user="{{Auth::user()}}" :subscribed="{{ $subscribed  }}" :imagefield="'{{ config('discuss.user_image_field') }}'" :imagepath="'{{ config('discuss.user_image_path') }}'" :defaultimage="'{{ config('discuss.default_image') }}'">
 
             </thread>
 

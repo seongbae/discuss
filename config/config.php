@@ -8,6 +8,8 @@ return [
 
     'user_image_field' => '',
 
+    'user_image_path' => '',
+
     'default_image' => '/vendor/discuss/default-avatar.png',
 
     'channel_classes' => [

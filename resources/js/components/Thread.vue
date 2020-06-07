@@ -72,7 +72,7 @@
 </template>
 <script>
     export default {
-        props: ['thread', 'channels', 'user','subscribed', 'imagefield','defaultimage'],
+        props: ['thread', 'channels', 'user','subscribed', 'imagefield', 'imagepath', 'defaultimage'],
 
         data() {
             return {
@@ -97,7 +97,7 @@
                 if (this.imagefield == "")
                     return this.defaultimage;
                 else
-                    return this.thread.user[this.imagefield];
+                    return this.imagepath+this.thread.user[this.imagefield];
             },
             channelURL: function() {
                 return '/discuss/'+this.thread.channel.slug;

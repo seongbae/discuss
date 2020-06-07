@@ -11,12 +11,20 @@ This package provides discussison forum for Laravel applications.  This is based
 
 ## Features
 
-* Users can start a discussion thread and add replies.
-* Users can edit or delete their own threads and replies. Admins can edit or delete any threads or replies.
-* Threads can be categorized with channel.
-* Users can subscribe to channels and get notified via email when a new thread is created in the channel.
-* Users can subscribe to threads and get notified via email when replies are added.
+* Create/edit/delete threads and replies
+* Admins can edit or delete any threads or replies.
+* Threads can be categorized with a channel.
+* Filter threads by channels or my threads
+* Subscribe to channels and get notified via email when a new thread is created in the channel.
+* Subscribe to threads and get notified via email when replies are added.
 * Thread view count is tracked.
+* Pagination
+
+## To Do
+* Write unit tests
+* Vote up/down
+* Poll
+* Sticky
 
 ## Installation
 
@@ -26,6 +34,8 @@ You can install the package via composer and publish assets:
 composer require seongbae/discuss
 php artisan vendor:publish --provider="Seongbae\Discuss\DiscussServiceProvider"
 ```
+
+When you publish files, the config/discuss.php config file will be generated.  In this file, you can set pagination count, user image field, and other various configurations for your application.
 
 The package uses bootstrap-vue component.  Install it with following command:
 
@@ -56,7 +66,9 @@ npm run dev
 
 ### Libraries used
 
-* This package uses sweetalert package by realrashid for displaying alerts. 
+* sweetalert package by realrashid for displaying alerts. 
+* Vue
+* Bootstrap-vue
 
 ### Changelog
 

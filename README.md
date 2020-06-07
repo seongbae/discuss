@@ -22,9 +22,10 @@ This package provides discussison forum for Laravel applications.  This is based
 
 ## To Do
 * Write unit tests
+* Sticky
+* Tags
 * Vote up/down
 * Poll
-* Sticky
 
 ## Installation
 

@@ -21,11 +21,12 @@ This package provides discussison forum for Laravel applications.  This is based
 * Pagination
 
 ## To Do
-* Write unit tests
-* Sticky
+* Unit tests
+* Sticky threads
 * Tags
 * Vote up/down
 * Poll
+* API integration
 
 ## Installation
 

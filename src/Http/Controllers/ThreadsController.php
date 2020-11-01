@@ -40,7 +40,7 @@ class ThreadsController extends Controller
 
             $channel = Channel::where('slug', $slug)->first();
 
-            if (Auth::user()->channelSubscriptions->contains($channel))
+            if (Auth::check() && Auth::user()->channelSubscriptions->contains($channel))
                 $subscribed = true;
         }
         else
@@ -119,7 +119,7 @@ class ThreadsController extends Controller
             $subscribed = 1;
 
         $user = Auth::user();
-        
+
         return view('discuss::threads.show', compact(['thread', 'channels','user','subscribed']));
     }
 

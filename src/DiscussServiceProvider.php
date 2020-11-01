@@ -58,9 +58,9 @@ class DiscussServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'discuss');
 
         // Register the main class to use with the facade
-        $this->app->singleton('discuss', function () {
-            return new Discuss;
-        });
+//        $this->app->singleton('discuss', function () {
+//            return new Discuss;
+//        });
 
         $this->app->register(EventServiceProvider::class);
 
@@ -69,5 +69,9 @@ class DiscussServiceProvider extends ServiceProvider
         if (file_exists($file)) {
             require_once($file);
         }
+
+        $this->app->bind('discuss',function(){
+            return new Discuss();
+        });
     }
 }

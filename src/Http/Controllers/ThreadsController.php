@@ -16,7 +16,10 @@ class ThreadsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth'); //->only('store');
+        if (config('discuss.view_mode') == 'public')
+            $this->middleware('auth', ['only' => ['create', 'store', 'edit','update', 'delete']]);
+        else
+            $this->middleware('auth');
     }
 
     /**
@@ -112,10 +115,12 @@ class ThreadsController extends Controller
         $thread->save();
 
         $subscribed = 0;
-        if (Auth::user()->threadSubscriptions->contains($thread))
+        if (Auth::check() && Auth::user()->threadSubscriptions->contains($thread))
             $subscribed = 1;
 
-        return view('discuss::threads.show', compact(['thread', 'channels','subscribed']));
+        $user = Auth::user();
+        
+        return view('discuss::threads.show', compact(['thread', 'channels','user','subscribed']));
     }
 
     /**

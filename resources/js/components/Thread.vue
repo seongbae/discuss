@@ -3,7 +3,7 @@
         <div class="col-lg-2">
             <a class="btn btn-outline-primary  btn-sm w-100 mb-2" href="/discuss"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back to discussion</a>
             <hr>
-            <button type="submit" class="btn btn-sm w-100 mb-2" v-bind:class="{ 'btn-danger': user_subscribed, 'btn-primary': !user_subscribed}" @click="update_subscription">
+            <button v-if="user.length > 0" type="submit" class="btn btn-sm w-100 mb-2" v-bind:class="{ 'btn-danger': user_subscribed, 'btn-primary': !user_subscribed}" @click="update_subscription">
                 <span v-if="user_subscribed"><i class="fas fa-check"></i> Subscribed</span>
                 <span v-if="!user_subscribed"><i class="fas fa-plus"></i> Subscribe</span>
             </button>

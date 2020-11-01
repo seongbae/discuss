@@ -6,14 +6,14 @@
 			<div class="col-lg-2">
                 <a class="btn btn-primary  btn-sm w-100 mb-2" href="/discuss/new" ><i class="fas fa-plus"></i> Start a Discussion</a>
                 <a class="btn btn-outline-primary btn-sm w-100 mb-2" href="/discuss" >View All Threads</a>
-                @if (auth())
+                @auth
                 <a class="btn btn-outline-primary btn-sm w-100 mb-2" href="/discuss?user=me" >My Threads</a>
                     @if (request()->is('discuss/*'))
                         <hr>
 {{--                    <a class="btn btn-outline-primary btn-sm w-100 mb-2" href="/discuss?user=me" >Subscribe to Channel</a>--}}
                         <channel-subscribe :channel="{{$channel}}" :user="{{Auth::user()}}" :subscribed="'{{ $subscribed }}'"></channel-subscribe>
                         @endif
-                @endif
+                @endauth
 
 
             </div>
@@ -31,10 +31,13 @@
 								<a href="{{ $thread->path() }}" style="font-size:1.2em;color:#22292f;">
 									{{ $thread->title }}
 								</a>
-								<div style="color:grey;">
-									<a href="#" v-b-popover.hover.right="'{{Auth::user()->name}}'" title="{{Auth::user()->name}}">{{ $thread->user->name}}</a> created {{ $thread->created_at->diffForHumans() }} in
+                                <div style="color:grey;" class="mt-1">
+                                    <a href="#" tabindex="0" role="button" data-placement="right" data-toggle="popover" data-container="body" type="button" data-html="true" id="login" data-id="{{$thread->user->id}}">{{ $thread->user->name}}</a>
+                                    created {{ $thread->created_at->diffForHumans() }} in
+
                                     <a href="/discuss/{{$thread->channel->slug}}" class="{{ $thread->channel->css_classes }}" style="border-radius:40px;">{{$thread->channel->name}}</a>
 
+                                    @include('discuss::threads._partials.userpopover',['user'=>$thread->user])
                                 </div>
 							</div>
 							<div class="text-muted" style="text-align:right;">

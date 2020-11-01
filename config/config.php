@@ -21,4 +21,6 @@ return [
     ],
 
     'page_count' => 5,
+
+    'view_mode'=>'public' // public = anyone can view. private = user must be logged in.
 ];

@@ -96,9 +96,7 @@ class ThreadsController extends Controller
 
         $thread->updateSubscription($user);
 
-        alert()->success('','Successfully created')->persistent(false, false)->autoClose(3000);
-
-        return redirect()->route('discuss.index');
+        return redirect()->route('discuss.index')->with('success','Successfully created');
     }
 
     /**
@@ -162,9 +160,7 @@ class ThreadsController extends Controller
     {
         $thread->delete();
 
-        alert()->success('','Successfully deleted')->persistent(false, true)->autoClose(3000);;
-
-        return redirect()->route('discuss.index');
+        return redirect()->route('discuss.index')->with('success','Successfully deleted');
     }
 
     private function slugify($string){

@@ -7,6 +7,11 @@ use Auth;
 
 class Channel extends Model
 {
+    protected $fillable = [
+        'name',
+        'slug'
+    ];
+
     public function getCssClassesAttribute()
     {
         $classes = config('discuss.channel_classes');

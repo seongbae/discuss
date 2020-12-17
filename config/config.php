@@ -4,7 +4,7 @@
  * You can place your custom package configuration in here.
  */
 return [
-    'user_type' => 'App\User',
+    'user_type' => 'App\Models\User',
 
     'user_image_field' => '',
 

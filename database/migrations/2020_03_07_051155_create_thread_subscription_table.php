@@ -13,7 +13,7 @@ class CreateThreadSubscriptionTable extends Migration
      */
     public function up()
     {
-        Schema::create('discuss_subscription', function (Blueprint $table) {
+        Schema::create('thread_subscription', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('item_id');
             $table->string('item_type');
@@ -30,6 +30,6 @@ class CreateThreadSubscriptionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('discuss_subscription');
+        Schema::dropIfExists('thread_subscription');
     }
 }

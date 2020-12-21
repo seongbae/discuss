@@ -87,7 +87,7 @@ class ThreadsController extends Controller
         $user = Auth::user();
 
         $thread = $user->threads()->create([
-            'user_id' => auth()->id(),
+            'user_id' => $user->id,
             'title' => request('title'),
             'slug' => $this->slugify(request('title')),
             'channel_id' => request('channel_id'),
@@ -164,7 +164,7 @@ class ThreadsController extends Controller
      * @param  \App\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function destroy($channelId, Thread $thread)
+    public function destroy(Request $request, Channel $channel, Thread $thread)
     {
         $thread->delete();
 

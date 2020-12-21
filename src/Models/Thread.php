@@ -73,7 +73,7 @@ class Thread extends Model
 
     public function subscribers()
     {
-        return $this->morphedByMany(config('discuss.user_type'), 'user', 'discuss_subscription','item_id','user_id')->where('item_type','thread');
+        return $this->morphedByMany(config('discuss.user_type'), 'user', 'thread_subscription','item_id','user_id')->where('item_type','thread');
     }
 
     public function subscribersExcept()

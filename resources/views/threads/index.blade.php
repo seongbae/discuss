@@ -4,9 +4,9 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-2">
+                @auth
                 <a class="btn btn-primary  btn-sm w-100 mb-2" href="#" data-target="#newThread" data-toggle="modal"><i class="fas fa-plus"></i> Start a Discussion</a>
                 <a class="btn btn-outline-primary btn-sm w-100 mb-2" href="/discuss" >View All Threads</a>
-                @auth
                 <a class="btn btn-outline-primary btn-sm w-100 mb-2" href="/discuss?user=me" >My Threads</a>
                     @if (request()->is('discuss/*'))
                         <hr>
@@ -54,14 +54,16 @@
 						@endforeach
 
                         {{ $threads->links() }}
-                        {{ $thread = null }}
+
 					</div>
 				</div>
                 @endif
+                {{ $thread = null }}
 			</div>
 		</div>
 	</div>
 </section>
+@auth
 <div class="modal fade" id="newThread" tabindex="-1" role="dialog" aria-labelledby="newThreadModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -74,12 +76,13 @@
                 <div class="modal-body">
                     <form method="POST" action="{{route('discuss.store')}}">
                         @csrf
-                        @include('discuss::threads._partials.form', ['thread', null])
+                        @include('discuss::threads._partials.form')
                     </form>
                 </div>
         </div>
     </div>
 </div>
+@endauth
 @stop
 
 @push('scripts')

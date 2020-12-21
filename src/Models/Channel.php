@@ -12,6 +12,8 @@ class Channel extends Model
         'slug'
     ];
 
+    public $timestamps = false;
+
     public function getCssClassesAttribute()
     {
         $classes = config('discuss.channel_classes');
@@ -24,7 +26,7 @@ class Channel extends Model
 
     public function subscribers()
     {
-        return $this->morphedByMany(config('discuss.user_type'), 'user', 'discuss_subscription','item_id','user_id')->where('item_type','channel');
+        return $this->morphedByMany(config('discuss.user_type'), 'user', 'thread_subscription','item_id','user_id')->where('item_type','channel');
     }
 
     public function subscribersExcept()
@@ -51,5 +53,10 @@ class Channel extends Model
     public function resolveChildRouteBinding($childType, $value, $field)
     {
         // TODO: Implement resolveChildRouteBinding() method.
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

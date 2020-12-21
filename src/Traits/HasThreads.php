@@ -14,14 +14,14 @@ trait HasThreads
 
     public function threadSubscriptions()
     {
-        return $this->morphToMany(Thread::class, 'user', 'discuss_subscription', 'user_id','item_id')
+        return $this->morphToMany(Thread::class, 'user', 'thread_subscription', 'user_id','item_id')
             ->where('item_type', 'thread')
             ->withTimestamps();
     }
 
     public function channelSubscriptions()
     {
-        return $this->morphToMany(Channel::class, 'user', 'discuss_subscription', 'user_id','item_id')
+        return $this->morphToMany(Channel::class, 'user', 'thread_subscription', 'user_id','item_id')
             ->where('item_type', 'channel')
             ->withTimestamps();
     }

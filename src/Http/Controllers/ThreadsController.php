@@ -96,7 +96,10 @@ class ThreadsController extends Controller
 
         $thread->updateSubscription($user);
 
-        return redirect()->route('discuss.index')->with('success','Successfully created');
+        if ($request->ajax())
+            return $request->json([$thread], 200);
+        else
+            return redirect()->route('discuss.index')->with('success','Successfully created');
     }
 
     /**
@@ -139,7 +142,7 @@ class ThreadsController extends Controller
      * @param  \App\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function update($channel, Thread $thread)
+    public function update(Channel $channel, Thread $thread, Request $request)
     {
         $this->validate(request(), [
             'title'=>'required',
@@ -148,6 +151,11 @@ class ThreadsController extends Controller
         ]);
 
         $thread->update(request(['title','body','channel_id']));
+
+        if ($request->ajax())
+            return $request->json([$thread], 200);
+        else
+            return redirect()->back();
     }
 
     /**
@@ -160,7 +168,10 @@ class ThreadsController extends Controller
     {
         $thread->delete();
 
-        return redirect()->route('discuss.index')->with('success','Successfully deleted');
+        if ($request->ajax())
+            return $request->json([], 200);
+        else
+            return redirect()->route('discuss.index')->with('success','Successfully deleted');
     }
 
     private function slugify($string){

@@ -22,9 +22,9 @@ class DiscussServiceProvider extends ServiceProvider
                 __DIR__.'/../config/config.php' => config_path('discuss.php'),
             ], 'config');
 
-            $this->publishes([
-                __DIR__.'/../resources/js' => resource_path('js'),
-            ], 'js');
+//            $this->publishes([
+//                __DIR__.'/../resources/js' => resource_path('js'),
+//            ], 'js');
 
             $this->publishes([
                 __DIR__.'/../resources/img' => public_path('vendor/discuss'),
@@ -56,11 +56,6 @@ class DiscussServiceProvider extends ServiceProvider
     {
         // Automatically apply the package configuration
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'discuss');
-
-        // Register the main class to use with the facade
-//        $this->app->singleton('discuss', function () {
-//            return new Discuss;
-//        });
 
         $this->app->register(EventServiceProvider::class);
 

@@ -5,6 +5,7 @@ namespace Seongbae\Discuss\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Seongbae\Discuss\Models\Thread;
+use Seongbae\Discuss\Models\Channel;
 use Illuminate\Support\Facades\Auth;
 use Seongbae\Discuss\Models\Reply;
 use App\Http\Controllers\Controller;
@@ -25,19 +26,22 @@ class RepliesController extends Controller
      * @param  Thread $thread
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store($channelId, Thread $thread)
+    public function store(Request $request, $channel, Thread $thread)
     {
         $this->validate(request(), [
             'body'=>'required'
         ]);
 
-        $thread->addReply([
+        $reply = $thread->addReply([
             'body' => request('body'),
             'user_id' => Auth::id(),
             'user_type' => $thread->user_type
         ], request('subscribe') == '1');
 
-        return back();
+        if ($request->ajax())
+            return $request->json([$reply], 200);
+       else
+            return redirect()->back();
     }
 
     /**
@@ -47,13 +51,18 @@ class RepliesController extends Controller
      * @param  \App\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function update(Reply $reply)
+    public function update(Request $request, Reply $reply)
     {
          $this->validate(request(), [
              'body'=>'required'
          ]);
 
         $reply->update(request(['body']));
+
+        if ($request->ajax())
+            return $request->json([$reply], 200);
+        else
+            return redirect()->back();
     }
 
     /**
@@ -62,10 +71,13 @@ class RepliesController extends Controller
      * @param  \App\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Reply $reply)
+    public function destroy(Reply $reply, Request $request)
     {
         $reply->delete();
 
-        return back();
+        if ($request->ajax())
+            return $request->json([], 200);
+        else
+            return redirect()->back();
     }
 }

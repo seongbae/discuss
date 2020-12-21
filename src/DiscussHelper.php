@@ -10,3 +10,14 @@ if (!function_exists('limitText')) {
             return $text;
     }
 }
+
+if (!function_exists('getUserImage')) {
+
+    function getUserImage($user, $imageField, $imagePath, $defaultImage)
+    {
+        if ($imageField == "")
+            return  $defaultImage;
+        else
+            return $imagePath.$user->$imageField;
+    }
+}

@@ -4,7 +4,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-2">
-                <a class="btn btn-primary  btn-sm w-100 mb-2" href="/discuss/new" ><i class="fas fa-plus"></i> Start a Discussion</a>
+                <a class="btn btn-primary  btn-sm w-100 mb-2" href="#" data-target="#newThread" data-toggle="modal"><i class="fas fa-plus"></i> Start a Discussion</a>
                 <a class="btn btn-outline-primary btn-sm w-100 mb-2" href="/discuss" >View All Threads</a>
                 @auth
                 <a class="btn btn-outline-primary btn-sm w-100 mb-2" href="/discuss?user=me" >My Threads</a>
@@ -25,7 +25,7 @@
 						@if ($thread->user != null)
 						<article>
 							<div style="float:left;" class="mr-4">
-								<img src="{{ config('discuss.user_image_field') == "" ? config('discuss.default_image') : config('discuss.user_image_path').$thread->user->{config('discuss.user_image_field')} }}" class="rounded-circle" width="50px">
+								<img src="{{getUserImage($thread->user, config('discuss.user_image_field'), config('discuss.user_image_path'), config('discuss.default_image'))}}" class="rounded-circle" width="50px">
 							</div>
 							<div style="float:left;">
 								<a href="{{ $thread->path() }}" style="font-size:1.2em;color:#22292f;">
@@ -54,6 +54,7 @@
 						@endforeach
 
                         {{ $threads->links() }}
+                        {{ $thread = null }}
 					</div>
 				</div>
                 @endif
@@ -61,4 +62,36 @@
 		</div>
 	</div>
 </section>
+<div class="modal fade" id="newThread" tabindex="-1" role="dialog" aria-labelledby="newThreadModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">New Thread</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{route('discuss.store')}}">
+                        @csrf
+                        @include('discuss::threads._partials.form', ['thread', null])
+                    </form>
+                </div>
+        </div>
+    </div>
+</div>
 @stop
+
+@push('scripts')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="/js/all.js"></script>
+
+    <script>
+    $(document).ready(function(){
+        $('#newThread').on('shown.bs.modal', function() {
+            $('#title').val("");
+            $('#title').trigger('focus');
+        });
+    });
+    </script>
+@endpush

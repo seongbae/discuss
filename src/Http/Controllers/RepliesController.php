@@ -26,7 +26,7 @@ class RepliesController extends Controller
      * @param  Thread $thread
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request, $channel, Thread $thread)
+    public function store(Request $request, Channel $channel, Thread $thread)
     {
         $this->validate(request(), [
             'body'=>'required'

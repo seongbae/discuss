@@ -1,4 +1,4 @@
-<div id="reply-{{$reply->id}}" class="card mt-2" v-if="showReply" >
+<div id="reply-{{$reply->id}}" class="card mt-2">
     <div class="card-body">
         <div class="mb-4">
             <div class="float-left">

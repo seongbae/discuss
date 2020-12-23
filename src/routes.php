@@ -9,7 +9,7 @@ Route::group(['namespace' => 'Seongbae\Discuss\Http\Controllers', 'middleware' =
     Route::get('discuss/{channel}/{thread}', 'ThreadsController@show')->name('discuss.show');
     Route::patch('discuss/{channel}/{thread}', 'ThreadsController@update')->name('discuss.update');
     Route::delete('discuss/{channel}/{thread}', 'ThreadsController@destroy')->name('discuss.destroy');
-    
+
     Route::post('discuss/{channel}/{thread}/replies', 'RepliesController@store')->name('reply.store');
     Route::patch('replies/{reply}', 'RepliesController@update')->name('reply.update');
     Route::delete('replies/{reply}', 'RepliesController@destroy')->name('reply.destroy');
@@ -17,9 +17,3 @@ Route::group(['namespace' => 'Seongbae\Discuss\Http\Controllers', 'middleware' =
     Route::post('discuss/subscribe/{type}/{id}', 'SubscriptionController@update')->name('subscription.update');
 
 });
-
-//Route::group(['namespace'=>'App\Modules\Discuss\Http\Controllers\Admin', 'middleware' => ['web', 'auth'], 'prefix' => 'admin'], function () {
-//
-//    Route::resource('channels', 'ChannelsController', ['as'=>'admin']);
-//
-//});

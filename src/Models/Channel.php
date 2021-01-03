@@ -24,30 +24,37 @@ class Channel extends Model
             return 'btn btn-outline-primary btn-sm ';
     }
 
-    public function subscribers()
+    public function subscriptions()
     {
-        return $this->morphedByMany(config('discuss.user_type'), 'user', 'thread_subscription','item_id','user_id')->where('item_type','channel');
+        return $this->hasMany(Subscription::class, 'subscribable_id')->where('subscribable_type', Thread::class);
     }
 
+    public function subscribers()
+    {
+        return $this->morphedByMany(config('discuss.user_type'), 'user', 'discuss_subscription', 'subscribable_id');
+    }
+    
     public function subscribersExcept()
     {
         return $this->subscribers()->where('user_id', '<>', Auth::id());
     }
 
-    public function updateSubscription($user)
+    public function attachSubscriber($user)
     {
-        if (! $user->channelSubscriptions->contains($this)) {
-            $user->channelSubscriptions()->save($this, ['item_type' => 'channel']);
-        } else {
-            $user->channelSubscriptions()->detach($this);
-        }
+        if (!Subscription::where('user_id', $user->id)
+            ->where('subscribable_type', Channel::class)
+            ->where('subscribable_id', $this->id)
+            ->exists())
+            Subscription::create(['user_id'=>$user->id, 'user_type'=>config('discuss.user_type'), 'subscribable_type'=>Channel::class, 'subscribable_id'=>$this->id]);
+
     }
 
-    public function subscribe($user)
+    public function detachSubscriber($user)
     {
-        if (! $user->channelSubscriptions->contains($this)) {
-            $user->channelSubscriptions()->save($this, ['item_type' => 'channel']);
-        }
+        $subscription = Subscription::where('user_id', $user->id)->where('subscribable_type', Channel::class)->where('subscribable_id', $this->id);
+
+        if ($subscription)
+            $subscription->delete();
     }
 
     public function resolveChildRouteBinding($childType, $value, $field)

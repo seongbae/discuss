@@ -29,23 +29,6 @@ class Thread extends Model
 
     protected $appends = ['created_at_human_readable'];
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::addGlobalScope('replyCount', function($builder) {
-            $builder->withCount('replies');
-        });
-
-        static::created(function ($thread) {
-            event(new NewThread($thread));
-        });
-
-        static::deleting(function ($thread) {
-            $thread->replies()->delete();
-        });
-    }
-
     /**
      * Fetch a path to the current thread.
      *
@@ -71,9 +54,14 @@ class Thread extends Model
         return $this->morphTo();
     }
 
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class, 'subscribable_id')->where('subscribable_type', Thread::class);
+    }
+
     public function subscribers()
     {
-        return $this->morphedByMany(config('discuss.user_type'), 'user', 'thread_subscription','item_id','user_id')->where('item_type','thread');
+        return $this->morphedByMany(config('discuss.user_type'), 'user', 'discuss_subscription', 'subscribable_id');
     }
 
     public function subscribersExcept()
@@ -81,6 +69,15 @@ class Thread extends Model
         return $this->subscribers()->where('user_id', '<>', Auth::id());
     }
 
+    public function channel()
+    {
+        return $this->belongsTo(Channel::class);
+    }
+
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
+    }
 
     /**
      * Add a reply to the thread.
@@ -94,37 +91,45 @@ class Thread extends Model
         event(new NewReply($reply));
 
         if ($subscribe)
-            $this->subscribe($reply->user);
+            $this->attachSubscriber($reply->user);
     }
 
-    public function channel()
+    public function attachSubscriber($user)
     {
-        return $this->belongsTo(Channel::class);
+        if (!Subscription::where('user_id', $user->id)
+            ->where('subscribable_type', Thread::class)
+            ->where('subscribable_id', $this->id)
+            ->exists())
+            Subscription::create(['user_id'=>$user->id, 'user_type'=>config('discuss.user_type'), 'subscribable_type'=>Thread::class, 'subscribable_id'=>$this->id]);
     }
 
-    public function replies()
+    public function detachSubscriber($user)
     {
-        return $this->hasMany(Reply::class);
-    }
+        $subscription = Subscription::where('user_id', $user->id)->where('subscribable_type', Thread::class)->where('subscribable_id', $this->id)->first();
 
-    public function updateSubscription($user)
-    {
-        if (! $user->threadSubscriptions->contains($this)) {
-            $user->threadSubscriptions()->save($this, ['item_type' => 'thread']);
-        } else {
-            $user->threadSubscriptions()->detach($this);
-        }
-    }
-
-    public function subscribe($user)
-    {
-        if (! $user->threadSubscriptions->contains($this)) {
-            $user->threadSubscriptions()->save($this, ['item_type' => 'thread']);
-        }
+        if ($subscription)
+            $subscription->delete();
     }
 
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('replyCount', function($builder) {
+            $builder->withCount('replies');
+        });
+
+        static::created(function ($thread) {
+            event(new NewThread($thread));
+        });
+
+        static::deleting(function ($thread) {
+            $thread->replies()->delete();
+        });
     }
 }

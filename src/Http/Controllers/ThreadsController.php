@@ -40,8 +40,7 @@ class ThreadsController extends Controller
 
             $channel = Channel::where('slug', $slug)->first();
 
-            if (Auth::check() && Auth::user()->channelSubscriptions->contains($channel))
-                $subscribed = true;
+            $subscribed = Auth::user()->subscribedTo($channel);
         }
         else
         {
@@ -94,7 +93,7 @@ class ThreadsController extends Controller
             'body'  => request('body')
         ]);
 
-        $thread->updateSubscription($user);
+        $thread->attachSubscriber($user);
 
         if ($request->ajax())
             return $request->json([$thread], 200);
@@ -115,13 +114,9 @@ class ThreadsController extends Controller
         $thread->view_count += 1;
         $thread->save();
 
-        $subscribed = 0;
-        if (Auth::check() && Auth::user()->threadSubscriptions->contains($thread))
-            $subscribed = 1;
-
         $user = Auth::user();
 
-        return view('discuss::threads.show', compact(['thread', 'channels','user','subscribed']));
+        return view('discuss::threads.show', compact(['thread', 'channels','user']));
     }
 
     /**

@@ -21,3 +21,32 @@ if (!function_exists('getUserImage')) {
             return $imagePath.$user->$imageField;
     }
 }
+
+if (!function_exists('getYoutubeEmbedUrl')) {
+
+    function getYoutubeEmbedUrl($url)
+    {
+        return preg_replace(
+            "/\s*[a-zA-Z\/\/:\.]*youtu(be.com\/watch\?v=|.be\/)([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i",
+            "<div style='position: relative;padding-bottom: 56.25%;padding-top: 25px;height: 0;'><iframe src=\"//www.youtube.com/embed/$2\" allowfullscreen style='position: absolute;top: 0;left: 0;width: 100%;height: 100%;'></iframe></div>",
+            $url
+        );
+    }
+}
+
+if (!function_exists('processThreadBody')) {
+
+    function processThreadBody($string)
+    {
+        if (strpos($string, 'youtube.com'))
+            $string = preg_replace(
+                "/\s*[a-zA-Z\/\/:\.]*youtu(be.com\/watch\?v=|.be\/)([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i",
+                "<div style='position: relative;padding-bottom: 56.25%;padding-top: 25px;height: 0;'><iframe src=\"//www.youtube.com/embed/$2\" allowfullscreen style='position: absolute;top: 0;left: 0;width: 100%;height: 100%;'></iframe></div>",
+                $string
+            );
+
+        return nl2br($string);
+    }
+}
+
+

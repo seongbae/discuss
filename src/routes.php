@@ -14,6 +14,7 @@ Route::group(['namespace' => 'Seongbae\Discuss\Http\Controllers', 'middleware' =
     Route::patch('replies/{reply}', 'RepliesController@update')->name('reply.update');
     Route::delete('replies/{reply}', 'RepliesController@destroy')->name('reply.destroy');
 
-    Route::post('discuss/subscribe/{type}/{id}', 'SubscriptionController@update')->name('subscription.update');
+    Route::post('subscriptions/{user}', 'SubscriptionController@store')->name('subscription.store');
+    Route::delete('subscriptions/{user}', 'SubscriptionController@destroy')->name('subscription.destroy');
 
 });

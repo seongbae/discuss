@@ -8,7 +8,7 @@ use Seongbae\Discuss\Models\Thread;
 
 trait HasThreads
 {
-    public function threads()
+    public function discussThreads()
     {
         return $this->morphMany(Thread::class, 'user');
     }

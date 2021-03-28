@@ -40,7 +40,10 @@ class ThreadsController extends Controller
 
             $channel = Channel::where('slug', $slug)->first();
 
-            $subscribed = Auth::user()->subscribedTo($channel);
+            if (Auth::user())
+                $subscribed = Auth::user()->subscribedTo($channel);
+            else
+                $subscribed = false;
         }
         else
         {

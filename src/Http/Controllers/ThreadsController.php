@@ -88,7 +88,7 @@ class ThreadsController extends Controller
 
         $user = Auth::user();
 
-        $thread = $user->threads()->create([
+        $thread = $user->discussThreads()->create([
             'user_id' => $user->id,
             'title' => request('title'),
             'slug' => $this->slugify(request('title')),

@@ -35,7 +35,7 @@ class ThreadsController extends Controller
         if ($slug)
         {
             $threads = Thread::whereHas('channel', function($q) use($slug) {
-                $q->where('channels.slug', $slug);
+                $q->where('discuss_channels.slug', $slug);
             })->latest()->paginate(config('discuss.page_count'));
 
             $channel = Channel::where('slug', $slug)->first();

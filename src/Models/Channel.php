@@ -12,6 +12,8 @@ class Channel extends Model
         'slug'
     ];
 
+    protected $table = 'discuss_channels';
+
     public $timestamps = false;
 
     public function getCssClassesAttribute()
@@ -33,7 +35,7 @@ class Channel extends Model
     {
         return $this->morphedByMany(config('discuss.user_type'), 'user', 'discuss_subscription', 'subscribable_id');
     }
-    
+
     public function subscribersExcept()
     {
         return $this->subscribers()->where('user_id', '<>', Auth::id());

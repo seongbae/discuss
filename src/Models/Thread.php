@@ -23,6 +23,8 @@ class Thread extends Model
         'slug'
     ];
 
+    protected $table = 'discuss_threads';
+
     protected $guarded = [];
 
     protected $with = ['user', 'channel'];

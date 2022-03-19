@@ -15,6 +15,8 @@ class Reply extends Model
         'user_type'
     ];
 
+    protected $table = 'discuss_replies';
+
     public function user()
     {
         return $this->morphTo();

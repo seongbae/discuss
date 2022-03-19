@@ -13,7 +13,7 @@ class CreateChannelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('channels', function (Blueprint $table) {
+        Schema::create('discuss_channels', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name', 50);
             $table->string('slug', 50);
@@ -27,6 +27,6 @@ class CreateChannelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('channels');
+        Schema::dropIfExists('discuss_channels');
     }
 }

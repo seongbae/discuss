@@ -13,7 +13,7 @@ class CreateDiscussThreadsTable extends Migration
      */
     public function up()
     {
-        Schema::create('threads', function (Blueprint $table) {
+        Schema::create('discuss_threads', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedInteger('user_id');
             $table->string('user_type');
@@ -33,6 +33,6 @@ class CreateDiscussThreadsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('threads');
+        Schema::dropIfExists('discuss_threads');
     }
 }

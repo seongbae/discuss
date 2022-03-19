@@ -83,7 +83,7 @@ class ThreadsController extends Controller
         $this->validate($request, [
             'title'=>'required',
             'body'=>'required',
-            'channel_id'=>'required|exists:channels,id'
+            'channel_id'=>'required|exists:discuss_channels,id'
         ]);
 
         $user = Auth::user();
@@ -145,7 +145,7 @@ class ThreadsController extends Controller
         $this->validate(request(), [
             'title'=>'required',
             'body'=>'required',
-            'channel_id'=>'required|exists:channels,id'
+            'channel_id'=>'required|exists:discuss_channels,id'
         ]);
 
         $thread->update(request(['title','body','channel_id']));

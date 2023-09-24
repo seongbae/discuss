@@ -49,7 +49,7 @@ class ThreadsController extends Controller
         {
             if (request()->get('user'))
             {
-                $user = Auth::user();
+                $user = request()->user;
                 $threads = Thread::where('user_id',$user->id)->latest()->paginate(config('discuss.page_count'));
             }
             else
@@ -86,17 +86,15 @@ class ThreadsController extends Controller
             'channel_id'=>'required|exists:discuss_channels,id'
         ]);
 
-        $user = Auth::user();
-
-        $thread = $user->discussThreads()->create([
-            'user_id' => $user->id,
+        $thread = $request->user->discussThreads()->create([
+            'user_id' => $request->user->id,
             'title' => request('title'),
             'slug' => $this->slugify(request('title')),
             'channel_id' => request('channel_id'),
             'body'  => request('body')
         ]);
 
-        $thread->attachSubscriber($user);
+        $thread->attachSubscriber($request->user);
 
         if ($request->ajax())
             return $request->json([$thread], 200);
@@ -148,6 +146,10 @@ class ThreadsController extends Controller
             'channel_id'=>'required|exists:discuss_channels,id'
         ]);
 
+        // Add security. Need to add support for role-based security.
+        if ($thread->user_id != $request->user_id)
+            return redirect()->back();
+
         $thread->update(request(['title','body','channel_id']));
 
         if ($request->ajax())
@@ -164,6 +166,10 @@ class ThreadsController extends Controller
      */
     public function destroy(Request $request, Channel $channel, Thread $thread)
     {
+        // Add security. Need to add support for role-based security.
+        if ($thread->user_id != $request->user_id)
+            return redirect()->back();
+
         $thread->delete();
 
         if ($request->ajax())

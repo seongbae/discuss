@@ -86,15 +86,15 @@ class ThreadsController extends Controller
             'channel_id'=>'required|exists:discuss_channels,id'
         ]);
 
-        $thread = $request->user->discussThreads()->create([
-            'user_id' => $request->user->id,
+        $thread = $request->user()->discussThreads()->create([
+            'user_id' => $request->user()->id,
             'title' => request('title'),
             'slug' => $this->slugify(request('title')),
             'channel_id' => request('channel_id'),
             'body'  => request('body')
         ]);
 
-        $thread->attachSubscriber($request->user);
+        $thread->attachSubscriber($request->user());
 
         if ($request->ajax())
             return $request->json([$thread], 200);

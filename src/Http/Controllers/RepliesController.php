@@ -57,7 +57,7 @@ class RepliesController extends Controller
              'body'=>'required'
          ]);
 
-        if ($reply->user_id != $request->user_id)
+        if ($reply->user_id != $request->user()->id)
             return redirect()->back();
 
         $reply->update(request(['body']));
@@ -76,7 +76,7 @@ class RepliesController extends Controller
      */
     public function destroy(Reply $reply, Request $request)
     {
-        if ($reply->user_id != $request->user_id)
+        if ($reply->user_id != $request->user()->id)
             return redirect()->back();
 
         $reply->delete();

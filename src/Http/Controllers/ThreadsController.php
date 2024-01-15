@@ -147,7 +147,7 @@ class ThreadsController extends Controller
         ]);
 
         // Add security. Need to add support for role-based security.
-        if ($thread->user_id != $request->user_id)
+        if ($thread->user_id != $request->user()->id)
             return redirect()->back();
 
         $thread->update(request(['title','body','channel_id']));
@@ -167,7 +167,7 @@ class ThreadsController extends Controller
     public function destroy(Request $request, Channel $channel, Thread $thread)
     {
         // Add security. Need to add support for role-based security.
-        if ($thread->user_id != $request->user_id)
+        if ($thread->user_id != $request->user()->id)
             return redirect()->back();
 
         $thread->delete();

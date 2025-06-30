@@ -34,4 +34,17 @@ trait HasThreads
             ->where('subscribable_type', Channel::class)
             ->withTimestamps();
     }
+
+    public function canManageDiscuss()
+    {
+        if (in_array($this->id, config('discuss.admin_user_ids'))
+            || in_array($this->email, config('discuss.admin_user_emails')))
+            return true;
+
+        if (count(config('discuss.admin_user_roles')) > 0 &&
+            $this->hasRole([config('discuss.admin_user_roles')]))
+            return true;
+
+        return false;
+    }
 }

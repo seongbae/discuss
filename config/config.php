@@ -22,5 +22,13 @@ return [
 
     'page_count' => 5,
 
-    'view_mode'=>'public' // public = anyone can view. private = user must be logged in.
+    'view_mode'=>'public', // public = anyone can view. private = user must be logged in.
+
+    'admin_user_ids' => [],
+
+    'admin_user_emails' => [],
+
+    'admin_user_roles' => []
+
+
 ];

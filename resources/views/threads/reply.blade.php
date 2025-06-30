@@ -27,6 +27,6 @@
             <div style="clear: both;"></div>
         </div>
 
-        <div style="white-space: pre-line;">{{$reply->body}}</div>
+        <div style="white-space: pre-line;">{{$reply->processed_body}}</div>
     </div>
 </div>

@@ -22,10 +22,17 @@ class Reply extends Model
         return $this->morphTo();
     }
 
-    public function getBodyAttribute($value)
+    public function getProcessedBodyAttribute()
     {
         $url = '@(http)?(s)?(://)?(([a-zA-Z])([-\w]+\.)+([^\s\.]+[^\s]*)+[^,.\s])@';
-        $body = preg_replace($url, '<a href="http$2://$4" target="_blank" title="$0">$0</a>', $value);
+        $body = preg_replace($url, '<a href="http$2://$4" target="_blank" title="$0">$0</a>', $this->body);
+
+        if (strpos($body, 'youtube.com'))
+            $body = preg_replace(
+                "/\s*[a-zA-Z\/\/:\.]*youtu(be.com\/watch\?v=|.be\/)([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i",
+                "<div style='position: relative;padding-bottom: 56.25%;padding-top: 25px;height: 0;'><iframe src=\"//www.youtube.com/embed/$2\" allowfullscreen style='position: absolute;top: 0;left: 0;width: 100%;height: 100%;'></iframe></div>",
+                $body
+            );
 
         return $body;
     }

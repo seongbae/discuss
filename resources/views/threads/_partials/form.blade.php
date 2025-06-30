@@ -18,7 +18,9 @@
 </div>
 <div class="row mb-2">
     <div class="col-sm-12">
-        <textarea name="body" id="body" rows="8"  required="required" class="form-control" placeholder="Message...">{{ $thread ? $thread->body : "" }}</textarea>
+        <textarea name="body" id="body" rows="8"  required="required" class="form-control" placeholder="Message...">
+            {{ $thread ? $thread->body : "" }}
+        </textarea>
     </div>
 </div>
 <div class="row mb-2">

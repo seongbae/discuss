@@ -33,7 +33,7 @@
                             <div style="clear: both;"></div>
                             <div class="mt-4">
                                 <p><strong><span>{{$thread->title}}</span></strong></p>
-                                <span>{{$thread->body}}</span>
+                                <span>{{$thread->processed_body}}</span>
                             </div>
                             <form action="{{$thread->path()}}" method="post" id="deleteForm">
                                 @csrf

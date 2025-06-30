@@ -56,10 +56,10 @@ class Thread extends Model
         return $this->morphTo();
     }
 
-    public function getBodyAttribute($value)
+    public function getProcessedBodyAttribute()
     {
         $url = '@(http)?(s)?(://)?(([a-zA-Z])([-\w]+\.)+([^\s\.]+[^\s]*)+[^,.\s])@';
-        $body = preg_replace($url, '<a href="http$2://$4" target="_blank" title="$0">$0</a>', $value);
+        $body = preg_replace($url, '<a href="http$2://$4" target="_blank" title="$0">$0</a>', $this->body);
 
         if (strpos($body, 'youtube.com'))
             $body = preg_replace(

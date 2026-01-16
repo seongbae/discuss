@@ -34,11 +34,14 @@ class ThreadsController extends Controller
 
         if ($slug)
         {
+            $channel = Channel::where('slug', $slug)->first();
+
+            if (!$channel)
+                abort(404);
+
             $threads = Thread::whereHas('channel', function($q) use($slug) {
                 $q->where('discuss_channels.slug', $slug);
             })->latest()->paginate(config('discuss.page_count'));
-
-            $channel = Channel::where('slug', $slug)->first();
 
             if (Auth::user())
                 $subscribed = Auth::user()->subscribedTo($channel);

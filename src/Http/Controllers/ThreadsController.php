@@ -50,14 +50,23 @@ class ThreadsController extends Controller
         }
         else
         {
-            if (request()->get('user'))
-            {
-                $user = request()->user;
-                $threads = Thread::where('user_id',$user->id)->latest()->paginate(config('discuss.page_count'));
-            }
-            else
-                $threads = Thread::latest()->paginate(config('discuss.page_count'));
+            $threads = Thread::latest()->paginate(config('discuss.page_count'));
         }
+
+        return view('discuss::threads.index', compact('threads', 'channel','subscribed'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function userThreadIndex()
+    {
+        $subscribed = false;
+        $channel = null;
+
+        $threads = Thread::where('user_id', request()->user()->id)->latest()->paginate(config('discuss.page_count'));
 
         return view('discuss::threads.index', compact('threads', 'channel','subscribed'));
     }

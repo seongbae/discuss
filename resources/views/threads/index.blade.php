@@ -7,7 +7,7 @@
                 @auth
                 <a class="btn btn-primary  btn-sm w-100 mb-2" href="#" data-target="#newThread" data-toggle="modal"><i class="fas fa-plus"></i> Start a Discussion</a>
                 <a class="btn btn-outline-primary btn-sm w-100 mb-2" href="/discuss" >View All Threads</a>
-                <a class="btn btn-outline-primary btn-sm w-100 mb-2" href="/discuss?user=me" >My Threads</a>
+                <a class="btn btn-outline-primary btn-sm w-100 mb-2" href="/discuss/me" >My Threads</a>
                     @if (request()->is('discuss/*'))
                         <hr>
 {{--                    <a class="btn btn-outline-primary btn-sm w-100 mb-2" href="/discuss?user=me" >Subscribe to Channel</a>--}}

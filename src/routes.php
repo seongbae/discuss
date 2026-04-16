@@ -1,5 +1,10 @@
 <?php
 
+Route::group(['namespace' => 'Seongbae\Discuss\Http\Controllers', 'middleware' => ['web', 'auth']], function () {
+    // Discussion
+    Route::get('discuss/me', 'ThreadsController@userThreadIndex')->name('discuss.me');
+});
+
 Route::group(['namespace' => 'Seongbae\Discuss\Http\Controllers', 'middleware' => ['web']], function () {
 
     // Discussion

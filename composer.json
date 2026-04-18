@@ -26,12 +26,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Seongbae\\Discuss\\": "src"
+            "Seongbae\\Discuss\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Seongbae\\Discuss\\Tests\\": "tests"
+            "Seongbae\\Discuss\\Tests\\": "tests/"
         }
     },
     "scripts": {
